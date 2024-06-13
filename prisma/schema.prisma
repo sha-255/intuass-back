@@ -18,3 +18,10 @@ model User {
   login String
   password String
 }
+
+model Card {
+  id Int @id @default(autoincrement())
+  poolId Int
+  reloadTime DateTime
+  imageUri String
+}
