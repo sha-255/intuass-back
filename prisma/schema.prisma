@@ -14,14 +14,38 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  login String
-  password String
+  id Int @id @default(autoincrement()) @unique
+  wallet Wallet?
+  cards Card?
+}
+
+model Wallet {
+  id Int @id @default(autoincrement()) @unique
+  user User @relation(fields: [userId], references: [id])
+  userId Int @unique
+  address String? @unique
+  inas Int
+  reward Int
+  stake Stake?
 }
 
 model Card {
-  id Int @id @default(autoincrement())
-  poolId Int
+  id Int @id @default(autoincrement()) @unique
+  user User @relation(fields: [userId], references: [id])
+  userId Int @unique
+  pool Int
+  number Int
   reloadTime DateTime
+  cost Int
   imageUri String
+}
+
+model Stake {
+  id Int @id @default(autoincrement()) @unique
+  wallet Wallet? @relation(fields: [walletAddress], references: [address])
+  walletAddress String @unique
+  time DateTime
+  pool Int
+  reward Int
+  percent Int
 }
