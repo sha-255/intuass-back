@@ -1,5 +1,3 @@
-export class User {
-  id: number;
-  login: string;
-  password: string;
+export class UserToAdd {
+    id: number
 }

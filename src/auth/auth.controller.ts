@@ -1,47 +1,19 @@
-import {
-  Controller,
-  HttpStatus,
-  HttpCode,
-  Post,
-  Body,
-  UseGuards,
-  Get,
-  Request,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { UserToAdd } from 'src/dto/user.dto';
 import { AuthGuard } from './auth.guard';
 
 @Controller()
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+    constructor(private readonly authService: AuthService) {}
 
-  @HttpCode(HttpStatus.OK)
-  @Post('login')
-  async signIn(
-    @Body() signInDto: { login: string; password: string },
-  ): Promise<{ access_token: string }> {
-    return await this.authService.signIn(signInDto.login, signInDto.password);
-  }
+    @Post('registrate')
+    async registrate(@Body() userData: { address: string }): Promise<{accessToken: string}> {
+        return await this.authService.registrate(userData.address);
+    }
 
-  @HttpCode(HttpStatus.OK)
-  @Post('registrate')
-  async registrate(
-    @Body() registrateDto: Record<string, string>,
-  ): Promise<{ access_token: string }> {
-    await this.authService.registrate(
-      registrateDto.login,
-      registrateDto.password,
-    );
-
-    return await this.authService.signIn(
-      registrateDto.login,
-      registrateDto.password,
-    );
-  }
-
-  @UseGuards(AuthGuard)
-  @Get('login')
-  getUserData(@Request() req) {
-    return { username: req.user.username };
-  }
+    @Post('signIn')
+    async signIn(@Body() userData: { id: number }): Promise<{accessToken: string}> {
+        return await this.authService.signIn(userData.id)
+    }
 }

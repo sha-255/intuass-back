@@ -1,6 +1,0 @@
--- CreateTable
-CREATE TABLE "Card" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "poolId" INTEGER NOT NULL,
-    "reloadTime" DATETIME NOT NULL
-);
