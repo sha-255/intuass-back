@@ -27,4 +27,15 @@ export class UsersService {
             }
         })
     }
+
+    async getMain(id: number) {
+        return await this.databaseService.user.findFirst({
+            where: {id},
+            include: {
+                wallet: true,
+                cards: true
+            }
+            
+        })
+    }
 }

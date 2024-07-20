@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
       const payload = await this.jwtService.verifyAsync(token, {
         secret: JWT_SECRET
       })
-      console.log(payload, req['user'])
+      req['user'] = payload
     }
     catch {
       throw new UnauthorizedException();

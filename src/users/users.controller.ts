@@ -23,4 +23,10 @@ export class UsersController {
     async deleteById(@Param('id', ParseIntPipe) id: number) {
         return await this.usersService.deleteUser(id);
     }
+
+    @Get('main')
+    @UseGuards(AuthGuard)
+    async getMain(@Body('id', ParseIntPipe) id: number) {
+        return await this.usersService.getMain(id);
+    }
 }
