@@ -20,6 +20,7 @@ export class UsersService {
     })) as UserToAdd[];
   }
 
+<<<<<<< HEAD
   async deleteUser(id: number) {
     return await this.databaseService.user.delete({
       where: {
@@ -41,4 +42,24 @@ export class UsersService {
       },
     });
   }
+=======
+    async deleteUser(id: number) {
+        return await this.databaseService.user.delete({
+            where: {
+                id,
+            }
+        })
+    }
+
+    async getMain(id: number) {
+        return await this.databaseService.user.findFirst({
+            where: {id},
+            include: {
+                wallet: true,
+                cards: true
+            }
+            
+        })
+    }
+>>>>>>> 48dff03e51a9707e4536e3ecf462990cab6d1753
 }
