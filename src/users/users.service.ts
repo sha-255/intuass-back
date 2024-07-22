@@ -41,4 +41,17 @@ export class UsersService {
       },
     });
   }
+
+  async claimReward(id: number) {
+    const wallet = await this.databaseService.wallet.findFirst({
+      where: {id}
+    })
+
+    return await this.databaseService.wallet.update({
+      where: { id },
+      data: { inas: wallet.inas + wallet.reward,
+        reward: 0
+      }
+    })
+  }
 }

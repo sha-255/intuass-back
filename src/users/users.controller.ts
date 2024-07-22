@@ -6,6 +6,7 @@ import {
   Post,
   Param,
   UseGuards,
+  Put,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserToAdd } from 'src/dto/user.dto';
@@ -35,5 +36,11 @@ export class UsersController {
   @UseGuards(AuthGuard)
   async getMain(@Param('id', ParseIntPipe) id: number) {
     return await this.usersService.getMain(id);
+  }
+
+  @Post('/:id/claimReward')
+  @UseGuards(AuthGuard)
+  async claimReward(@Param('id', ParseIntPipe) id: number) {
+    return await this.usersService.claimReward(id);
   }
 }
