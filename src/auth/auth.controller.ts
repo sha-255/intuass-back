@@ -13,13 +13,19 @@ export class AuthController {
     }
 
     @Post('signIn')
-    async signIn(@Body() userData: { id: number }): Promise<{accessToken: string}> {
-        return await this.authService.signIn(userData.id)
+    async signIn(@Body() userData: { adress: number }): Promise<{accessToken: string}> {
+        return await this.authService.signIn(userData.adress)
     }
 
     @UseGuards(AuthGuard)
     @Get('wallet')
     async getWallet(@Request() req) {
         return req.user.username
+    }
+
+    @UseGuards(AuthGuard)
+    @Get('user')
+    async getUser(@Request() req) {
+        return req.user
     }
 }
