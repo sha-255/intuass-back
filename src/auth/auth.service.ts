@@ -47,9 +47,13 @@ export class AuthService {
         }
     }
 
-    async getUser(id: number): Promise<{user}> {
+    async getUser(address: string): Promise<{user}> {
+        const wallet = await this.DatabaseService.wallet.findFirst({
+            where: {address: address}
+        })
+
         const user = await this.DatabaseService.user.findFirst({
-            where: { id },
+            where: {id: wallet.id},
             include: {
                 wallet: {
                 include: {
