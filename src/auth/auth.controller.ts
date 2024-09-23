@@ -25,7 +25,7 @@ export class AuthController {
 
     @UseGuards(AuthGuard)
     @Get('user')
-    async getUser(@Request() req) {
-        return req.user
+    async getUser(@Request() req): Promise<{user: string}> {
+        return await this.authService.getUser(req)
     }
 }
