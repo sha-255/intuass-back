@@ -51,9 +51,9 @@ export class AuthService {
         const wallet = await this.DatabaseService.wallet.findFirst({
             where: {address: address}
         })
-
+        
         const user = await this.DatabaseService.user.findFirst({
-            where: {id: wallet.id},
+            where: {id: wallet.userId},
             include: {
                 wallet: {
                 include: {
