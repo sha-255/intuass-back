@@ -26,6 +26,6 @@ export class AuthController {
     @UseGuards(AuthGuard)
     @Get('user')
     async getUser(@Request() req) {
-        return await this.authService.signIn(req.user.username)
+        return await this.authService.getUser(req.user.username)
     }
 }
