@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { DatabaseService } from 'src/database/database.service';
 import { JwtService } from '@nestjs/jwt';
@@ -12,16 +12,20 @@ export class AuthService {
   ) {}
 
   async login(address: string): Promise<{ accessToken }> {
+    if (address == undefined && address.length < 10) {
+      throw new UnauthorizedException();
+    }
     let userData;
+    console.log(address);
     const check = !!(await this.DatabaseService.wallet.findFirst({
       where: { address: address },
     }));
-    console.log(check);
     if (check) {
       userData = await this.signIn(address);
     } else {
       userData = await this.registrate(address);
     }
+    console.log(userData.userId, userData.address);
     return {
       accessToken: await this.jwtService.signAsync({
         sub: userData.userId,
