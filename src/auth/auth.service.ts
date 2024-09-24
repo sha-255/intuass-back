@@ -11,7 +11,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async logIn(address: string): Promise<{ accessToken }> {
+  async login(address: string): Promise<{ accessToken }> {
     let userData;
     const check = !!(await this.DatabaseService.wallet.findFirst({
       where: { address: address },

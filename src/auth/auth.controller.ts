@@ -14,11 +14,11 @@ import { AuthGuard } from './auth.guard';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('signIn')
-  async signIn(
+  @Post('login')
+  async login(
     @Body() userData: { address: string },
   ): Promise<{ accessToken: string }> {
-    return await this.authService.logIn(userData.address);
+    return await this.authService.login(userData.address);
   }
 
   @UseGuards(AuthGuard)
