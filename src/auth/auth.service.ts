@@ -20,19 +20,15 @@ export class AuthService {
         }
     }
 
-    async signIn(id: number): Promise<{accessToken}> {
-        const user = await this.DatabaseService.user.findFirst({
-            where: {
-                id: id,
-             },
-            include: {
-                wallet: true
-            }
+    async signIn(address: string): Promise<{accessToken}> {
+        const user = await this.DatabaseService.wallet.findFirst({
+            where: {address: address}
         })
+        
         return {
             accessToken: await this.jwtService.signAsync({
-                sub: user.id,
-                username: user.wallet.address,
+                sub: user.userId,
+                username: user.address,
             })
         }
     }
@@ -51,7 +47,7 @@ export class AuthService {
         const wallet = await this.DatabaseService.wallet.findFirst({
             where: {address: address}
         })
-        
+
         const user = await this.DatabaseService.user.findFirst({
             where: {id: wallet.userId},
             include: {

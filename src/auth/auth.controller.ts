@@ -13,8 +13,8 @@ export class AuthController {
     }
 
     @Post('signIn')
-    async signIn(@Body() userData: { adress: number }): Promise<{accessToken: string}> {
-        return await this.authService.signIn(userData.adress)
+    async signIn(@Body() userData: { address: string }): Promise<{accessToken: string}> {
+        return await this.authService.signIn(userData.address)
     }
 
     @UseGuards(AuthGuard)
