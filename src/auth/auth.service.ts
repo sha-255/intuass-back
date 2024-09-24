@@ -12,7 +12,7 @@ export class AuthService {
   ) {}
 
   async login(address: string): Promise<{ accessToken }> {
-    if (address == undefined && address.length < 10) {
+    if (address == undefined || address.length < 10) {
       throw new UnauthorizedException();
     }
     let userData;
